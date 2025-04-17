@@ -18,14 +18,14 @@ my_django/
 ├── manage.py               # Django管理脚本
 └── README.md      
 ```
-##快速开始
-###1.克隆项目
-###2.安装依赖
+## 快速开始
+### 1.克隆项目
+### 2.安装依赖
 自行安装cuda、ollama，本地部署一个模型，执行下面命令
 ```bash
 pip install django pymysql requests bcrypt
 ```
-###3.数据库配置
+### 3.数据库配置
 在utils/MysqlUtil.py和my_django/settings.py中的DATABASES中配置自己的数据库，数据库结构如下
 ```mysql
 -- 用户表
@@ -54,5 +54,5 @@ CREATE TABLE messages (
     FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
 );
 ```
-###4.运行项目
+### 4.运行项目
 启动django服务，根据控制台输出的端口信息进入页面使用
