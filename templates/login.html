@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>登录 - ChatRobot</title>
+    <link rel="stylesheet" href="{% static 'element-ui/lib/theme-chalk/index.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'element-ui/lib/index.js' %}"></script>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #0c0c0c;
+            color: #0ff;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #0ff;
+            width: 300px;
+            box-shadow: 0 0 15px #00fff7;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #0ff;
+        }
+
+        .el-input__inner {
+            background-color: #1a1a1a;
+            color: #00ffff;
+            border: 1px solid #00ffff;
+        }
+
+        .el-button {
+            background-color: #00ffff;
+            color: #000;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .switch {
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #00ffff;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="app" class="login-container">
+    <div class="login-title">[{ isLogin ? '登录' : '注册' }]
+    </div>
+    <el-form :model="form">
+        <el-form-item>
+            <el-input placeholder="用户名" v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-input placeholder="密码" v-model="form.password" show-password></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm">[{ isLogin ? '登录' : '注册' }]
+            </el-button>
+        </el-form-item>
+    </el-form>
+    <div class="switch" @click="isLogin = !isLogin">
+         [{ isLogin ? '切换到注册' : '切换到登录' }]
+
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        delimiters: ['[{', '}]'],
+        data() {
+            return {
+                form: {
+                    username: '',
+                    password: ''
+                },
+                isLogin: true
+            };
+        },
+        methods: {
+            submitForm() {
+                const url = this.isLogin ? '/api/login/' : '/api/register/';
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.form)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.user_id) {
+                            sessionStorage.setItem("user_id", data.user_id);
+                            window.location.href = '/';
+                        } else if (data.message) {
+                            this.$message.success(data.message);
+                            if (!this.isLogin) this.isLogin = true;
+                        } else {
+                            this.$message.error(data.error || "发生错误");
+                        }
+                    });
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
