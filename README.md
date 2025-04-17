@@ -1,7 +1,7 @@
 # django_chatbot
 基于vue+django+ollama的对话机器人
 ## 项目结构
-"""bash
+'''bash
 my_django/
 ├── controller/             # 控制器（业务逻辑）
 │    ├── Robot.py           # 聊天机器人核心逻辑
@@ -17,5 +17,5 @@ my_django/
 ├── .gitignore              
 ├── manage.py               # Django管理脚本
 └── README.md      
-"""
+'''
 
