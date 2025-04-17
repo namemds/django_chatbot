@@ -1,5 +1,5 @@
 # django_chatbot
-基于vue+django+ollama的对话机器人
+基于vue+django+ollama的对话机器人模型
 ## 项目结构
 ```bash
 my_django/
