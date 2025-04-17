@@ -11,7 +11,7 @@ def query_ollama_chat(messages):
     response = requests.post(
         "http://localhost:11434/api/chat",
         json={
-            "model": "deepseek-r1:8b",
+            "model": "deepseek-r1:8b",  # 模型名称
             "messages": messages,
             "stream": True
         },

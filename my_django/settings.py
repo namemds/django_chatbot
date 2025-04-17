@@ -80,7 +80,7 @@ DATABASES = {
         'USER': '',      # MySQL 用户名
         'PASSWORD': '',  # 密码
         'HOST': '',            # 通常是 localhost
-        'PORT': '',                 # 默认端口
+        'PORT': '',                 # 默认端口（3306）
         'OPTIONS': {
             'charset': 'utf8mb4',       # 推荐使用 utf8mb4 编码
         }

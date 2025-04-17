@@ -11,7 +11,7 @@ def get_conn():
     :return:
     """
     conn = pymysql.connect(host="",  # 数据库地址
-                           port=0,  # 数据库端口
+                           port=0,  # 数据库端口（3306）
                            user="",  # 用户名
                            password="",  # 密码
                            database="",  # 数据库名称
