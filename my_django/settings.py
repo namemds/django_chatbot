@@ -76,11 +76,11 @@ WSGI_APPLICATION = "my_django.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'uk_ds_users',         # 你的数据库名称
-        'USER': 'root',      # MySQL 用户名
-        'PASSWORD': '1472138451zh',  # 密码
-        'HOST': '127.0.0.1',            # 通常是 localhost
-        'PORT': '3306',                 # 默认端口
+        'NAME': '',         # 你的数据库名称
+        'USER': '',      # MySQL 用户名
+        'PASSWORD': '',  # 密码
+        'HOST': '',            # 通常是 localhost
+        'PORT': '',                 # 默认端口
         'OPTIONS': {
             'charset': 'utf8mb4',       # 推荐使用 utf8mb4 编码
         }
