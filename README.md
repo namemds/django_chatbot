@@ -25,7 +25,7 @@ my_django/
 ```bash
 pip install django pymysql requests bcrypt
 ```
-### 3.数据库配置
+### 3.数据库配置和模型API
 在utils/MysqlUtil.py和my_django/settings.py中的DATABASES中配置自己的数据库，数据库结构如下
 ```mysql
 -- 用户表
@@ -53,6 +53,24 @@ CREATE TABLE messages (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
 );
+```
+在controller/Robot.py中找到以下代码，将model改为你自己部署的模型名称
+```python
+def query_ollama_chat(messages):
+    response = requests.post(
+        "http://localhost:11434/api/chat",
+        json={
+            "model": "deepseek-r1:8b",
+            "messages": messages,
+            "stream": True
+        },
+        stream=True
+    )
+
+    for line in response.iter_lines():
+        if line:
+            data = json.loads(line.decode("utf-8"))
+            yield data.get("message", {}).get("content", "")
 ```
 ### 4.运行项目
 启动django服务，根据控制台输出的端口信息进入页面使用
