@@ -11,7 +11,7 @@ def query_ollama_chat(messages):
     response = requests.post(
         "http://localhost:11434/api/chat",
         json={
-            "model": "deepseek-r1:8b",  # 模型名称
+            "model": "deepseek-r1:8b",
             "messages": messages,
             "stream": True
         },
@@ -117,8 +117,8 @@ def send_message(request):
         for m in raw_msgs:
             role = "user" if m["sender"] == "user" else "assistant"
             message_list.append({"role": role, "content": m["text"]})
-        # optional: you can prepend system message if needed
-        # message_list.insert(0, {"role": "system", "content": "You are a helpful assistant."})
+        # 提前引导模型的行为或角色
+        message_list.insert(0, {"role": "system", "content": "你是一个风趣幽默并且很有帮助的 AI 助手，回答中可以带一些轻松的玩笑。"})
 
         def stream_response():
             full_reply = ""

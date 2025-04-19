@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{% static 'element-ui/lib/theme-chalk/index.css' %}">
     <script src="{% static 'js/vue.js' %}"></script>
     <script src="{% static 'element-ui/lib/index.js' %}"></script>
+    <script src="{% static 'js/marked.min.js' %}"></script>
+    <script src="{% static 'js/dompurify.min.js' %}"></script>
+
 
     <style>
         html, body {
@@ -225,7 +228,7 @@
         <div class="messages">
             <div v-for="msg in currentMessages" :key="msg.id" :class="['message', msg.sender]">
                 <strong>{{ msg.sender === 'user' ? '你' : '🤖😎' }}:</strong><br>
-                {{ msg.text }}
+                <div v-html="renderMarkdown(msg.text)"></div>
             </div>
         </div>
         <div class="input-area">
@@ -497,6 +500,10 @@
                         container.scrollTop = container.scrollHeight;
                     }
                 });
+            },
+            renderMarkdown(text) {
+                const html = marked.parse(text || '');
+                return DOMPurify.sanitize(html); // 防止脚本注入
             }
 
 
